@@ -74,6 +74,11 @@ CREATE TABLE ventas(
 	constraint ventas_pk primary key(id_venta)
 );
 
+ALTER TABLE ventas
+ADD CONSTRAINT productos_ventas_fk
+FOREIGN KEY(codigo_producto)
+REFERENCES productos(codigo);
+
 INSERT INTO productos(codigo, nombre, descripcion, precio, stock)
 VALUES
 (1, 'Manzana', 'Fruta fresca', 1.50, 100),
@@ -104,6 +109,12 @@ CREATE TABLE plataformas(
 	nombre_plataforma varchar(50) not null,
 	constraint plataformas_pk primary key(id_plataforma)
 );
+
+INSERT INTO plataformas (id_plataforma, nombre_plataforma)
+VALUES
+    (1, 'PlayStation'),
+    (2, 'Xbox'),
+    (3, 'Nintendo');
 
 SELECT * FROM plataformas; 
 
@@ -162,7 +173,11 @@ VALUES
     ('0123456789', 'Mateo', 'Martin', 'mateo@example.com', '2009-10-10', NULL);
 	
 INSERT INTO profesores (codigo, nombre)
-VALUES (01, 'Francisco');
+VALUES (01, 'Francisco'),
+    (5, 'Juan Pérez'),
+    (2, 'María López'),
+    (3, 'Carlos Rodríguez'),
+    (4, 'Ana Gómez');
 
 SELECT * FROM estudiantes;
 
@@ -262,6 +277,9 @@ CREATE TABLE banco (
 	detalle varchar(100),
 	constraint banco_pk primary key (codigo_banco)
 );
+
+INSERT INTO banco (codigo_banco, codigo_transaccion, detalle)
+VALUES (1, 1, 'Transferencia de 800$');
 
 ALTER TABLE banco
 ADD CONSTRAINT transacciones_banco_fk
